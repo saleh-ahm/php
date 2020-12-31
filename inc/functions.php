@@ -124,3 +124,12 @@ function updateStudent($id, $fname, $lname, $roll) {
 	}
 	return false;
 }
+
+function deleteStudent($id) {
+	$serializedData = file_get_contents(DB_NAME);
+	$students = unserialize($serializedData);
+
+	unset($students[$id-1]);
+	$serializedData = serialize($students);
+	file_put_contents(DB_NAME, $serializedData, LOCK_EX);
+}

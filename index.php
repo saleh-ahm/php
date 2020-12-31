@@ -3,6 +3,15 @@
 	$task = $_REQUEST['task'] ?? 'report';
 	$error = $_REQUEST['error'] ?? '0';
 	$info = '';
+
+	if ('delete' == $task) {
+		$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+		if ($id > 0) {
+			deleteStudent($id);
+			header('location: /crud/index.php?task=report');
+		}
+	}
+	
 	if ('seed' == $task) {
 		seed();
 		$info = 'Seeding is completed';
